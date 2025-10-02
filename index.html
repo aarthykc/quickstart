@@ -1,9 +1,91 @@
-<!doctype html>
-<html>
-  <head>
-    <title>Hello World!</title>
-  </head>
-  <body>
-   <p> Hello World!</p>
-  </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sweetu's Water Intake Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <img src="assets/water-droplet.webp" alt="Water Droplet" class="mascot">
+            <h1>Sweetu's Water Intake Tracker</h1>
+            <p class="subtitle">Stay hydrated, stay healthy!</p>
+        </header>
+
+        <main class="main-content">
+            <div class="goal-section">
+                <h2>Daily Goal</h2>
+                <div class="goal-input">
+                    <input type="number" id="daily-goal" min="1" max="20" value="8" class="goal-input-field">
+                    <label for="daily-goal">glasses per day</label>
+                    <button id="set-goal" class="btn btn-secondary">Set Goal</button>
+                </div>
+            </div>
+
+            <div class="tracker-section">
+                <div class="progress-circle">
+                    <svg class="progress-ring" width="200" height="200">
+                        <circle class="progress-ring-circle" cx="100" cy="100" r="85"></circle>
+                    </svg>
+                    <div class="progress-text">
+                        <span class="current-count" id="current-count">0</span>
+                        <span class="goal-count">/ <span id="goal-display">8</span></span>
+                        <div class="progress-label">glasses</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="counter-section">
+                <h3>Track Your Intake</h3>
+                <div class="counter-buttons">
+                    <div class="intake-option">
+                        <button class="btn btn-primary add-glass" data-amount="1">
+                            <span class="icon">🥛</span>
+                            <span>Glass</span>
+                            <span class="amount">(250ml)</span>
+                        </button>
+                    </div>
+                    <div class="intake-option">
+                        <button class="btn btn-primary add-bottle" data-amount="2">
+                            <span class="icon">🍼</span>
+                            <span>Bottle</span>
+                            <span class="amount">(500ml)</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="quick-actions">
+                    <button id="undo-btn" class="btn btn-outline">Undo Last</button>
+                    <button id="reset-btn" class="btn btn-outline">Reset Day</button>
+                </div>
+            </div>
+
+            <div class="stats-section">
+                <h3>Today's Stats</h3>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-value" id="total-ml">0</span>
+                        <span class="stat-label">ml consumed</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value" id="percentage">0%</span>
+                        <span class="stat-label">of goal</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value" id="remaining">8</span>
+                        <span class="stat-label">glasses left</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="encouragement" id="encouragement">
+                <p>Great start! Keep it up! 💧</p>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
 </html>
