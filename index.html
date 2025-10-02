@@ -1,9 +1,502 @@
-<!doctype html>
-<html>
-  <head>
-    <title>Hello World!</title>
-  </head>
-  <body>
-   <p> Hello World!</p>
-  </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sweetu's Water Intake Website</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #74b9ff, #0984e3, #2d3436);
+            min-height: 100vh;
+            color: #2d3436;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            color: #0984e3;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header p {
+            color: #636e72;
+            font-size: 1.2rem;
+        }
+
+        .goal-section {
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            color: white;
+            text-align: center;
+        }
+
+        .goal-inputs {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .goal-input-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .goal-input-group label {
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .goal-input-group input {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 25px;
+            width: 120px;
+            text-align: center;
+            font-size: 1.1rem;
+            background: rgba(255, 255, 255, 0.9);
+            color: #2d3436;
+        }
+
+        .goal-input-group input:focus {
+            outline: none;
+            background: white;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .progress-section {
+            background: #f8f9ff;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border: 2px solid #74b9ff;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #ddd;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 20px 0;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #74b9ff, #0984e3);
+            border-radius: 15px;
+            transition: width 0.5s ease;
+            position: relative;
+        }
+
+        .progress-text {
+            text-align: center;
+            font-weight: bold;
+            color: #0984e3;
+            margin-top: 10px;
+            font-size: 1.2rem;
+        }
+
+        .counters {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .counter-card {
+            background: white;
+            border: 3px solid #74b9ff;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .counter-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(116, 185, 255, 0.3);
+        }
+
+        .counter-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            object-fit: contain;
+        }
+
+        .counter-title {
+            font-size: 1.5rem;
+            color: #0984e3;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .counter-display {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #2d3436;
+            margin: 20px 0;
+        }
+
+        .counter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-add {
+            background: linear-gradient(135deg, #00b894, #00a085);
+            color: white;
+        }
+
+        .btn-add:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 184, 148, 0.4);
+        }
+
+        .btn-subtract {
+            background: linear-gradient(135deg, #e17055, #d63031);
+            color: white;
+        }
+
+        .btn-subtract:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(214, 48, 49, 0.4);
+        }
+
+        .reset-section {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .btn-reset {
+            background: linear-gradient(135deg, #636e72, #2d3436);
+            color: white;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+        }
+
+        .btn-reset:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(45, 52, 54, 0.4);
+        }
+
+        .stats {
+            background: #e8f4fd;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            border-left: 5px solid #0984e3;
+        }
+
+        .stats h3 {
+            color: #0984e3;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #0984e3;
+        }
+
+        .stat-label {
+            color: #636e72;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .counters {
+                grid-template-columns: 1fr;
+            }
+            
+            .goal-inputs {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+        }
+
+        .celebration {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #00b894, #00a085);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>💧 Sweetu's Water Intake Website 💧</h1>
+            <p>Stay hydrated and track your daily water consumption!</p>
+        </div>
+
+        <div class="goal-section">
+            <h2>🎯 Set Your Daily Goals</h2>
+            <div class="goal-inputs">
+                <div class="goal-input-group">
+                    <label for="glassGoal">Glasses Goal:</label>
+                    <input type="number" id="glassGoal" value="8" min="1" max="20">
+                </div>
+                <div class="goal-input-group">
+                    <label for="bottleGoal">Bottles Goal:</label>
+                    <input type="number" id="bottleGoal" value="4" min="1" max="10">
+                </div>
+            </div>
+        </div>
+
+        <div class="progress-section">
+            <h3>📊 Today's Progress</h3>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text" id="progressText">0% of daily goal achieved</div>
+        </div>
+
+        <div class="counters">
+            <div class="counter-card">
+                <img src="assets/glass.webp" alt="Glass" class="counter-icon">
+                <h3 class="counter-title">Glasses</h3>
+                <div class="counter-display" id="glassCount">0</div>
+                <div class="counter-buttons">
+                    <button class="btn btn-add" onclick="updateCounter('glass', 1)">+1</button>
+                    <button class="btn btn-subtract" onclick="updateCounter('glass', -1)">-1</button>
+                </div>
+            </div>
+
+            <div class="counter-card">
+                <img src="assets/bottle.webp" alt="Bottle" class="counter-icon">
+                <h3 class="counter-title">Bottles</h3>
+                <div class="counter-display" id="bottleCount">0</div>
+                <div class="counter-buttons">
+                    <button class="btn btn-add" onclick="updateCounter('bottle', 1)">+1</button>
+                    <button class="btn btn-subtract" onclick="updateCounter('bottle', -1)">-1</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats">
+            <h3>📈 Today's Statistics</h3>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-value" id="totalWater">0</div>
+                    <div class="stat-label">Total Water (ml)</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="glassProgress">0%</div>
+                    <div class="stat-label">Glasses Goal</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="bottleProgress">0%</div>
+                    <div class="stat-label">Bottles Goal</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="overallProgress">0%</div>
+                    <div class="stat-label">Overall Progress</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="reset-section">
+            <button class="btn btn-reset" onclick="resetCounters()">🔄 Reset Daily Count</button>
+        </div>
+    </div>
+
+    <div class="celebration" id="celebration">
+        🎉 Congratulations! You've reached your daily hydration goal! 🎉
+    </div>
+
+    <script>
+        let glassCount = 0;
+        let bottleCount = 0;
+        const GLASS_ML = 250;
+        const BOTTLE_ML = 500;
+
+        function loadData() {
+            const today = new Date().toDateString();
+            const savedData = localStorage.getItem('waterIntake_' + today);
+            
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                glassCount = data.glassCount || 0;
+                bottleCount = data.bottleCount || 0;
+                
+                document.getElementById('glassGoal').value = data.glassGoal || 8;
+                document.getElementById('bottleGoal').value = data.bottleGoal || 4;
+            }
+            
+            updateDisplay();
+        }
+
+        function saveData() {
+            const today = new Date().toDateString();
+            const data = {
+                glassCount,
+                bottleCount,
+                glassGoal: parseInt(document.getElementById('glassGoal').value),
+                bottleGoal: parseInt(document.getElementById('bottleGoal').value)
+            };
+            localStorage.setItem('waterIntake_' + today, JSON.stringify(data));
+        }
+
+        function updateCounter(type, change) {
+            if (type === 'glass') {
+                glassCount = Math.max(0, glassCount + change);
+                document.getElementById('glassCount').textContent = glassCount;
+            } else if (type === 'bottle') {
+                bottleCount = Math.max(0, bottleCount + change);
+                document.getElementById('bottleCount').textContent = bottleCount;
+            }
+            
+            updateProgress();
+            saveData();
+        }
+
+        function updateProgress() {
+            const glassGoal = parseInt(document.getElementById('glassGoal').value);
+            const bottleGoal = parseInt(document.getElementById('bottleGoal').value);
+            
+            const glassPercent = Math.min(100, (glassCount / glassGoal) * 100);
+            const bottlePercent = Math.min(100, (bottleCount / bottleGoal) * 100);
+            const overallPercent = (glassPercent + bottlePercent) / 2;
+            
+            document.getElementById('progressFill').style.width = overallPercent + '%';
+            document.getElementById('progressText').textContent = 
+                Math.round(overallPercent) + '% of daily goal achieved';
+            
+            const totalWater = (glassCount * GLASS_ML) + (bottleCount * BOTTLE_ML);
+            document.getElementById('totalWater').textContent = totalWater.toLocaleString();
+            document.getElementById('glassProgress').textContent = Math.round(glassPercent) + '%';
+            document.getElementById('bottleProgress').textContent = Math.round(bottlePercent) + '%';
+            document.getElementById('overallProgress').textContent = Math.round(overallPercent) + '%';
+            
+            if (overallPercent >= 100 && (glassCount >= glassGoal || bottleCount >= bottleGoal)) {
+                showCelebration();
+            }
+        }
+
+        function updateDisplay() {
+            document.getElementById('glassCount').textContent = glassCount;
+            document.getElementById('bottleCount').textContent = bottleCount;
+            updateProgress();
+        }
+
+        function resetCounters() {
+            if (confirm('Are you sure you want to reset today\'s water intake count?')) {
+                glassCount = 0;
+                bottleCount = 0;
+                updateDisplay();
+                saveData();
+            }
+        }
+
+        function showCelebration() {
+            const celebration = document.getElementById('celebration');
+            celebration.style.display = 'block';
+            setTimeout(() => {
+                celebration.style.display = 'none';
+            }, 3000);
+        }
+
+        document.getElementById('glassGoal').addEventListener('change', () => {
+            updateProgress();
+            saveData();
+        });
+
+        document.getElementById('bottleGoal').addEventListener('change', () => {
+            updateProgress();
+            saveData();
+        });
+
+        window.addEventListener('load', loadData);
+
+        setInterval(() => {
+            const now = new Date();
+            if (now.getHours() === 0 && now.getMinutes() === 0) {
+                glassCount = 0;
+                bottleCount = 0;
+                updateDisplay();
+                saveData();
+            }
+        }, 60000);
+    </script>
+</body>
 </html>
